@@ -1,0 +1,13 @@
+node_modules
+npm-debug.log
+tmp
+
+.DS_Store
+
+# IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+test/fixtures/**/out
