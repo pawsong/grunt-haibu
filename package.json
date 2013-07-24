@@ -1,25 +1,7 @@
 {
-  "name": "grunt-contrib-compress",
-  "description": "Compress files and folders.",
-  "version": "0.5.2",
-  "homepage": "https://github.com/gruntjs/grunt-contrib-compress",
-  "author": {
-    "name": "Grunt Team",
-    "url": "http://gruntjs.com/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/gruntjs/grunt-contrib-compress.git"
-  },
-  "bugs": {
-    "url": "https://github.com/gruntjs/grunt-contrib-compress/issues"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/gruntjs/grunt-contrib-compress/blob/master/LICENSE-MIT"
-    }
-  ],
+  "name": "grunt-haibu",
+  "description": "Deploy app to haibu server",
+  "version": "0.0.1",
   "main": "./app.js",
   "engines": {
     "node": ">= 0.8.0"
