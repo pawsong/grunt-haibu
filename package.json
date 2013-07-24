@@ -10,22 +10,24 @@
     "start": "app.js",
     "test": "grunt test -v"
   },
-  "devDependencies": {
+  "dependencies": {
     "lazystream": "~0.1.0",
     "prettysize": "~0.0.2",
     "request": "~2.22.0",
     "async": "~0.2.9",
-    "grunt-contrib-jshint": "~0.2.0",
-    "grunt-contrib-nodeunit": "~0.1.2",
-    "grunt-contrib-clean": "~0.4.0",
-    "grunt-contrib-internal": "~0.4.2",
-    "grunt": "~0.4.0",
     "unzip": "~0.1.5",
     "tar": "~0.1.17",
     "mkdirp": "~0.3.5",
     "parse-ignore": "git+ssh://git@pickasso-dev.net:giff/parse-ignore.git",
     "archiver": "~0.4.2",
     "wrench": "~1.5.1"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.2.0",
+    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-internal": "~0.4.2",
+    "grunt": "~0.4.0"
   },
   "peerDependencies": {
     "grunt": "~0.4.0"
