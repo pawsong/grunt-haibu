@@ -25,6 +25,8 @@ module.exports = function(grunt) {
         var self = this;
 
         var options = self.options({
+            include: '.gitignore',
+            exclude: '.haibuinclude',
             appRoot: '.'
         });
 
@@ -61,7 +63,19 @@ module.exports = function(grunt) {
         function compressSrc(callback) {
 
             // Read exclusions from gitignore file.
-            var ignore = ignoreParser.gitignore( options.appRoot + '/.gitignore');
+            var ignore = ignoreParser.gitignore( options.appRoot + path.sep + options.exclude);
+
+            // Add include path
+            var includePath = options.appRoot + path.sep + options.include;
+            if( fs.existsSync(includePath) ) {
+                var include = ignoreParser.gitignore( options.appRoot + path.sep + options.include);
+                include.forEach(function(entry) {
+                    var index = ignore.indexOf(entry);
+                    if(index >= 0) {
+                        ignore.splice(index, 1);
+                    }
+                });
+            }
 
             // Read files to deploy
             var files = require('./lib/getAllFiles')

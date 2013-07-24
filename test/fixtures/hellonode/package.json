@@ -3,10 +3,5 @@
   "scripts": {
     "start": "out/server/start.js"
   },
-  "version": "0.1.2",
-  "dependencies": {
-    "express": "~3.3.4",
-    "request": "~2.22.0",
-    "winston": "~0.7.2"
-  }
+  "version": "0.1.2"
 }

@@ -27,6 +27,8 @@ module.exports = function(grunt) {
         // Configuration to be run (and then tested).
         haibu: {
             options: {
+                exclude: '.gitignore',
+                include: '.haibuinclude',
                 haibu_host: 'http://s-schedule-dev.net',
                 haibu_port: 9002,
                 username: 'node',
