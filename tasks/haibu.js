@@ -25,8 +25,8 @@ module.exports = function(grunt) {
         var self = this;
 
         var options = self.options({
-            include: '.gitignore',
-            exclude: '.haibuinclude',
+            exclude: '.gitignore',
+            include: '.haibuinclude',
             appRoot: '.'
         });
 
