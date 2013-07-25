@@ -14,8 +14,6 @@ module.exports =function getAllFiles(grunt, localRoot, ignore) {
     }
     exclusions.push(localRoot + path.sep + '.git');
 
-    console.log(exclusions);
-
     // A method for parsing the source location and storing the information into a suitably formated object
     function dirParseSync(startDir, result) {
         var files;
