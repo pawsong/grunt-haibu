@@ -10,9 +10,11 @@ module.exports =function getAllFiles(grunt, localRoot, ignore) {
     var exclusions = [];
 
     for(var i = 0; i < ignore.length; i ++) {
-        exclusions[i] = localRoot + path.sep +  ignore[i];
+        exclusions[i] = localRoot + path.sep +  ignore[i].replace(/\/+$/, "");
     }
     exclusions.push(localRoot + path.sep + '.git');
+
+    console.log(exclusions);
 
     // A method for parsing the source location and storing the information into a suitably formated object
     function dirParseSync(startDir, result) {
