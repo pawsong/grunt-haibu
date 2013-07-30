@@ -11,12 +11,12 @@ module.exports = function(grunt) {
         async = require('async'),
         request = require('request'),
         fs = require('fs'),
-        ignoreParser = require('parse-ignore'),
         mkdirp = require('mkdirp'),
-        wrench = require('wrench');
+        wrench = require('wrench'),
+        glob = require('glob');
 
     // Constants
-    var TARBALL_PATH = 'tmp/app.tar';
+    var TARBALL_PATH = '.deploy/app.tar';
 
     // Local libraries
     var compress = require('./lib/compress')(grunt);
@@ -25,7 +25,6 @@ module.exports = function(grunt) {
         var self = this;
 
         var options = self.options({
-            exclude: '.gitignore',
             include: '.haibuinclude',
             appRoot: '.'
         });
@@ -61,25 +60,22 @@ module.exports = function(grunt) {
         }
 
         function compressSrc(callback) {
-
-            // Read exclusions from gitignore file.
-            var ignore = ignoreParser.gitignore( options.appRoot + path.sep + options.exclude);
-
-            // Add include path
             var includePath = options.appRoot + path.sep + options.include;
-            if( fs.existsSync(includePath) ) {
-                var include = ignoreParser.gitignore( options.appRoot + path.sep + options.include);
-                include.forEach(function(entry) {
-                    var index = ignore.indexOf(entry);
-                    if(index >= 0) {
-                        ignore.splice(index, 1);
-                    }
-                });
-            }
 
-            // Read files to deploy
-            var files = require('./lib/getAllFiles')
-                (grunt, options.appRoot, ignore);
+            var files = [];
+
+            fs.readFileSync(includePath).toString().split('\n').forEach(function (line) {
+                var parsedFiles = glob.sync(line, { cwd: options.appRoot });
+
+                parsedFiles.forEach(function(entry) {
+                    var file = {
+                        src: [ options.appRoot + path.sep + entry ],
+                        orig: { expand: true, cwd: options.appRoot, src: [ '**.*' ] },
+                        dest: entry
+                    };
+                    files.push(file);
+                });
+            });
 
             // Compress
             compress.options = {
