@@ -157,16 +157,18 @@ module.exports = function(grunt) {
             var files = [];
 
             fs.readFileSync(includePath).toString().split('\n').forEach(function (line) {
-                var parsedFiles = glob.sync(line, { cwd: options.path });
+                if(line) {
+                    var parsedFiles = glob.sync(line, { cwd: options.path });
 
-                parsedFiles.forEach(function(entry) {
-                    var file = {
-                        src: [ options.path + path.sep + entry ],
-                        orig: { expand: true, cwd: options.path, src: [ '**.*' ] },
-                        dest: entry
-                    };
-                    files.push(file);
-                });
+                    parsedFiles.forEach(function(entry) {
+                        var file = {
+                            src: [ options.path + path.sep + entry ],
+                            orig: { expand: true, cwd: options.path, src: [ '**.*' ] },
+                            dest: entry
+                        };
+                        files.push(file);
+                    });
+                }
             });
 
             // Add package.json
