@@ -22,6 +22,8 @@ module.exports = function(grunt) {
     // Local libraries
     var compress = require('./lib/compress')(grunt);
 
+    var prevTaskDone = false;
+
     grunt.registerMultiTask('haibu', 'Deploy to haibu server.', function() {
         var self = this;
 
@@ -249,6 +251,10 @@ module.exports = function(grunt) {
 
             var result = JSON.parse(body); //app information
 
+            if(!result.drone) {
+                callback(body);
+            }
+
             if(result.drone.port == options.port) {
                 callback(null);
             } else {
@@ -259,6 +265,14 @@ module.exports = function(grunt) {
 
                 callback("Running port " +
                     result.drone.port + " is different from target port " + options.port);
+            }
+        }
+
+        if(options.prevTask) {
+            if(!prevTaskDone) {
+                prevTaskDone = true;
+                grunt.task.run([options.prevTask, 'haibu:' + self.target]);
+                return;
             }
         }
 
