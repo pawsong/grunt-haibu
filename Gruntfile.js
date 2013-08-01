@@ -28,7 +28,7 @@ module.exports = function(grunt) {
         haibu: {
             options: {
                 include: '.haibuinclude',
-                haibu_host: 'http://s-schedule-dev.net',
+                haibu_host: 'http://localhost',
                 haibu_port: 9002,
                 username: 'node',
                 appRoot: './test/fixtures/hellonode',
