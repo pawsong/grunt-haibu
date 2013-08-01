@@ -1,7 +1,7 @@
 {
   "name": "grunt-haibu",
   "description": "Deploy app to haibu server",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "author": {
     "name": "Seunggeun Song",
     "email": "gifarangw@gmail.com"
