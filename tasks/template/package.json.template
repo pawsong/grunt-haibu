@@ -1,0 +1,9 @@
+{
+  "name": "{{appName}}",
+  "scripts": {
+    "start": "{{startScript}}"
+  },
+  "dependencies": {
+    "node-static": "~0.7.0"
+  }
+}

@@ -2,12 +2,10 @@
   "name": "grunt-haibu",
   "description": "Deploy app to haibu server",
   "version": "0.0.1",
-  "main": "./app.js",
   "engines": {
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "start": "app.js",
     "test": "grunt test -v"
   },
   "dependencies": {

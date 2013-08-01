@@ -1,7 +1,4 @@
 {
   "name": "hellonode",
-  "scripts": {
-    "start": "out/server/start.js"
-  },
   "version": "0.1.2"
 }

@@ -2,4 +2,4 @@
 process.env.port = {{port}};
 
 // Start init script
-require('../../{{initScript}}');
+require('./{{initScript}}');
