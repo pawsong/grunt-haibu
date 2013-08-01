@@ -29,7 +29,7 @@ module.exports = function(grunt) {
             options: {
 
                 // Server setting
-                haibuHost: 'http://s-schedule-dev.net',
+                haibuHost: 'http://localhost',
                 haibuPort: 9002,
                 userName: 'node',
 
