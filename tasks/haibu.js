@@ -249,21 +249,27 @@ module.exports = function(grunt) {
             grunt.log.ok("- User name : " + options.userName);
             grunt.log.ok("- App name : " + appFullName);
 
-            var result = JSON.parse(body); //app information
+            var result;
+
+            try {
+                result = JSON.parse(body); //app information
+            } catch (err) {
+                return callback(err + '\n' + body);            
+            }
 
             if(!result.drone) {
-                callback(body);
+                return callback(body);
             }
 
             if(result.drone.port == options.port) {
-                callback(null);
+                return callback(null);
             } else {
                 grunt.log.error("But port is unexpected...");
                 grunt.log.error("Used port: " + result.drone.port);
                 grunt.log.error("Expected: " + options.port);
                 grunt.log.error("Something going wrong... contact server admin.");
 
-                callback("Running port " +
+                return callback("Running port " +
                     result.drone.port + " is different from target port " + options.port);
             }
         }
