@@ -234,13 +234,19 @@ module.exports = function(grunt) {
                 options.haibuHost + ':' + options.haibuPort + '/deploy/' +
                     options.userName + '/' +
                     appFullName;
-
-            fs.createReadStream(TARBALL_PATH)
-                .pipe(request.post({
-                    url: targetURL
+            
+            var stat = fs.statSync(TARBALL_PATH);
+           
+            fs.createReadStream(TARBALL_PATH).pipe(
+                request.post({
+                    url: targetURL,
+                    headers: {
+                        'Content-Length' : stat.size
+                    }
                 }, function (err, res, body) {
                     callback(err, body);
-                }));
+                })
+            );
         }
 
         function verifyPort(body, callback) {
