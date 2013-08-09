@@ -78,6 +78,14 @@ module.exports = function(grunt) {
             checkOptionExists('staticDir');
         }
 
+        if(options.prevTask) {
+            if(!prevTaskDone) {
+                prevTaskDone = true;
+                grunt.task.run([options.prevTask, self.nameArgs /*'haibu:' + self.target*/]);
+                return;
+            }
+        }
+
         // make directories
         function makeDirs (callback) {
             wrench.rmdirSyncRecursive(DEPLOY_TMP_DIR, true);
@@ -156,6 +164,9 @@ module.exports = function(grunt) {
             var i;
 
             var includePath = options.path + path.sep + options.includeFile;
+
+            // TODO: if include file does not exist, generate one.
+            
 
             var files = [];
 
@@ -251,10 +262,6 @@ module.exports = function(grunt) {
         }
 
         function verifyPort(body, callback) {
-            grunt.log.ok("");
-            grunt.log.ok("Test application successfully spawned!");
-            grunt.log.ok("- User name : " + options.userName);
-            grunt.log.ok("- App name : " + appFullName);
 
             var result;
 
@@ -268,6 +275,11 @@ module.exports = function(grunt) {
                 return callback(body);
             }
 
+            grunt.log.ok("");
+            grunt.log.ok("Test application successfully spawned!");
+            grunt.log.ok("- User name : " + options.userName);
+            grunt.log.ok("- App name : " + appFullName);
+
             if(result.drone.port == options.port) {
                 return callback(null);
             } else {
@@ -278,14 +290,6 @@ module.exports = function(grunt) {
 
                 return callback("Running port " +
                     result.drone.port + " is different from target port " + options.port);
-            }
-        }
-
-        if(options.prevTask) {
-            if(!prevTaskDone) {
-                prevTaskDone = true;
-                grunt.task.run([options.prevTask, 'haibu:' + self.target]);
-                return;
             }
         }
 
