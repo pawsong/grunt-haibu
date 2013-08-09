@@ -29,7 +29,7 @@ module.exports = function(grunt) {
 
         var options = self.options({
             haibuPort: 80,
-            mode: '',
+            mode: 'normal',
             startScript: 'start.js',
             includeFile: '.haibuinclude',
             path: '.'
