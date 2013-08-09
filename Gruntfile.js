@@ -29,11 +29,26 @@ module.exports = function(grunt) {
             options: {
 
                 // Server setting
-                haibuHost: 'http://localhost',
+
+                // Optional. default: http
+                haibuProtocol: 'http',
+
+                // Required
+                haibuDomain: 'localhost',
+
+                // Optional
+                // haibuSubdomain: 'deploy',
+
+                // Optional. default: 80
                 haibuPort: 9002,
+
+                // Haibu user
                 userName: 'node',
 
-                // Override package.json's app property
+                /*
+                 * Optional.
+                 * Override package.json's app property
+                 */
                 appName: '',
 
                 /*
@@ -48,7 +63,9 @@ module.exports = function(grunt) {
                 includeFile: '.haibuinclude',
 
                 // Task which should run before deployment.
-                prevTask: 'clean'
+                prevTask: 'clean',
+
+                subdomainEqualsToTarget: true
             },
             haibutest1: {
                 options: {
@@ -56,7 +73,10 @@ module.exports = function(grunt) {
                     port: 11000,
 
                     // Starting point.
-                    initScript: 'server.js'
+                    initScript: 'server.js',
+
+                    // Optional
+                    //subdomain: ''
                 }
             },
             haibutest2: {

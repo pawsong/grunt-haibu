@@ -13,7 +13,8 @@ module.exports = function(grunt) {
         fs = require('fs'),
         mkdirp = require('mkdirp'),
         wrench = require('wrench'),
-        glob = require('glob');
+        glob = require('glob'),
+        url = require('url');
 
     // Constants
     var DEPLOY_TMP_DIR = '.deploy',
@@ -24,20 +25,28 @@ module.exports = function(grunt) {
 
     var prevTaskDone = false;
 
+    var haibuUrl;
+
     grunt.registerMultiTask('haibu', 'Deploy to haibu server.', function() {
         var self = this;
 
         var options = self.options({
+            haibuProtocol: 'http',
             haibuPort: 80,
             mode: 'normal',
             startScript: 'start.js',
             includeFile: '.haibuinclude',
-            path: '.'
+            path: '.',
+            subdomainEqualsToTarget: false
         });
 
         var packageJSON,
             appName,
             appFullName;
+
+        if(!options.subdomain && options.subdomainEqualsToTarget) {
+            options.subdomain = self.target;
+        }
 
         function checkOptionExists(option) {
             if (!options[option]) {
@@ -85,6 +94,12 @@ module.exports = function(grunt) {
                 return;
             }
         }
+
+        haibuUrl = url.format({
+            protocol: options.haibuProtocol,
+            hostname: (options.haibuSubdomain ? options.haibuSubdomain + '.' : '') + options.haibuDomain,
+            port: options.haibuPort
+        });
 
         // make directories
         function makeDirs (callback) {
@@ -224,9 +239,7 @@ module.exports = function(grunt) {
         }
 
         function cleanCurrentApp(callback) {
-            var targetURL =
-                options.haibuHost + ':' + options.haibuPort + '/drones/' +
-                    appFullName + '/clean';
+            var targetURL = haibuUrl  + '/drones/' + appFullName + '/clean';
 
             request.post({
                 url: targetURL,
@@ -242,10 +255,7 @@ module.exports = function(grunt) {
         }
 
         function deploy(callback) {
-            var targetURL =
-                options.haibuHost + ':' + options.haibuPort + '/deploy/' +
-                    options.userName + '/' +
-                    appFullName;
+            var targetURL = haibuUrl + '/deploy/' + options.userName + '/' + appFullName;
             
             var stat = fs.statSync(TARBALL_PATH);
            
@@ -319,16 +329,24 @@ module.exports = function(grunt) {
                 return;
             }
 
-            patt = new RegExp( '^(.*:)//([a-z\-.]+)(:[0-9]+)?(.*)$');
-            domain = patt.exec(options.haibuHost)[2];
-
             grunt.log.ok("");
             grunt.log.ok("Port is " + options.port + " which is right, expected.");
             grunt.log.ok("");
             grunt.log.ok("Test app is now started at:");
-            grunt.log.ok("- http://" + domain + ':' + options.port);
-            grunt.log.ok("or")
-            grunt.log.ok("- http://" + self.target + "." + domain);
+            grunt.log.ok("- " + url.format({
+                protocol: options.haibuProtocol,
+                hostname: options.haibuDomain,
+                port: options.port
+            }));
+
+            if(options.subdomain) {
+                grunt.log.ok("or")
+                grunt.log.ok("- " + url.format({
+                    protocol: options.haibuProtocol,
+                    hostname: options.subdomain + '.' + options.haibuDomain
+                }));
+            }
+
             grunt.log.ok("");
             grunt.log.ok("Finished!");
 
