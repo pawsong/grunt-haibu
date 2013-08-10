@@ -1,7 +1,7 @@
 {
   "name": "grunt-haibu",
   "description": "Deploy app to haibu server",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "author": {
     "name": "Seunggeun Song",
     "email": "gifarangw@gmail.com"
@@ -24,7 +24,8 @@
     "mkdirp": "~0.3.5",
     "archiver": "~0.4.2",
     "wrench": "~1.5.1",
-    "glob": "~3.2.6"
+    "glob": "~3.2.6",
+    "prompt": "~0.2.11"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.2.0",
