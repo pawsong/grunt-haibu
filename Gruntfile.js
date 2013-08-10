@@ -62,7 +62,13 @@ module.exports = function(grunt) {
                 prevTask: 'clean',
 
                 // Print result with target as subdomain when deploy is finished. (Default: false)
-                subdomainEqualsToTarget: true
+                subdomainEqualsToTarget: true,
+
+                /*
+                 * Ask if deployment should be continued
+                 * when multiple deployment is started. (Default: true)
+                 */
+                askWhenMultiDeploy: true
             },
             test1: {
                 options: {
@@ -92,6 +98,15 @@ module.exports = function(grunt) {
                 options: {
                     mode: 'static',
                     port: 11010,
+
+                    // Directory to serve, relative to options.path (Required)
+                    staticDir: '.'
+                }
+            },
+            test3: {
+                options: {
+                    mode: 'static',
+                    port: 11020,
 
                     // Directory to serve, relative to options.path (Required)
                     staticDir: '.'
