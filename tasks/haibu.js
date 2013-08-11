@@ -25,7 +25,7 @@ module.exports = function(grunt) {
     var compress = require('./lib/compress')(grunt);
 
     var multiDeployAllowed = false,
-        prevTaskDone = false;
+        prevTasksDone = false;
 
     var haibuUrl;
 
@@ -146,10 +146,10 @@ module.exports = function(grunt) {
                 checkOptionExists('staticDir');
             }
 
-            if(options.prevTask) {
-                if(!prevTaskDone) {
-                    prevTaskDone = true;
-                    grunt.task.run([options.prevTask, self.nameArgs]);
+            if(options.prevTasks) {
+                if(!prevTasksDone) {
+                    prevTasksDone = true;
+                    grunt.task.run(options.prevTasks.concat(self.nameArgs));
                     return done();
                 }
             }

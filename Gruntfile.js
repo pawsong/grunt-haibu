@@ -59,7 +59,7 @@ module.exports = function(grunt) {
                 includeFile: '.haibuinclude',
 
                 // Task which should run before deployment. (Optional)
-                prevTask: 'clean',
+                prevTasks: ['clean'],
 
                 // Print result with target as subdomain when deploy is finished. (Default: false)
                 subdomainEqualsToTarget: true,
