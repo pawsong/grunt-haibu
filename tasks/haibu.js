@@ -180,9 +180,8 @@ module.exports = function(grunt) {
 
                     // Override packageJSON var with template.
                     packageJSON = fs.readFileSync(
-                        path.resolve(__dirname, 'template', 'package.json.template'),
-                        {encoding: 'utf8'}
-                    );
+                        path.resolve(__dirname, 'template', 'package.json.template')
+                    ).toString();
 
                     // Maybe better way...
                     packageJSON = packageJSON.replace(/{{appName}}/g, appName);
@@ -207,17 +206,17 @@ module.exports = function(grunt) {
                 if (options.mode === 'normal') {
 
                     template = fs.readFileSync(
-                        path.resolve(__dirname, 'template', 'normal.js.template'),
-                        {encoding: 'utf8'}
-                    );
+                        path.resolve(__dirname, 'template', 'normal.js.template')
+                    ).toString();
+
                     template = template.replace(/{{initScript}}/g, options.initScript);
 
                 } else if (options.mode === 'static') {
 
                     template = fs.readFileSync(
-                        path.resolve(__dirname, 'template', 'static.js.template'),
-                        {encoding: 'utf8'}
-                    );
+                        path.resolve(__dirname, 'template', 'static.js.template')
+                    ).toString();
+
                     template = template.replace(/{{staticDir}}/g, options.staticDir);
 
                 } else {

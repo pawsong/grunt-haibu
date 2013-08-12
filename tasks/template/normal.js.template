@@ -1,5 +1,5 @@
 // Set port
-process.env.port = {{port}};
+process.env.PORT = {{port}};
 
 // Start init script
 require('./{{initScript}}');
